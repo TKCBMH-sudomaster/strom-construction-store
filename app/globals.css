@@ -2,14 +2,16 @@
 
 @theme {
   --color-strom-black: #000000;
-  --color-strom-charcoal: #111111;
+  --color-strom-ink: #070707;
   --color-strom-orange: #ff6a00;
+  --color-strom-amber: #ff9a3d;
   --color-strom-white: #ffffff;
 }
 
 @theme inline {
-  --font-heading: var(--font-oswald), sans-serif;
+  --font-heading: var(--font-chakra), sans-serif;
   --font-sans: var(--font-inter), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
 }
 
 html,
@@ -19,19 +21,64 @@ body {
   min-height: 100%;
 }
 
-.hazard-stripe {
-  height: 14px;
-  background: repeating-linear-gradient(
-    45deg,
-    #ff6a00 0 16px,
-    #000000 16px 32px
-  );
+/* Grid that fades out toward the edges */
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(255, 106, 0, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 106, 0, 0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
 }
 
-.blueprint-grid {
-  background-color: #000000;
+/* Same grid, no fade (used inside image panels) */
+.tech-grid-flat {
   background-image:
-    linear-gradient(rgba(255, 106, 0, 0.14) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 106, 0, 0.14) 1px, transparent 1px);
-  background-size: 32px 32px;
+    linear-gradient(rgba(255, 106, 0, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 106, 0, 0.10) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.glow-text {
+  text-shadow: 0 0 28px rgba(255, 106, 0, 0.5);
+}
+
+/* Corner brackets that grow on hover */
+.bracket {
+  position: relative;
+}
+.bracket::before,
+.bracket::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: #ff6a00;
+  border-style: solid;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+.bracket::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+.bracket::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
+}
+.bracket:hover::before,
+.bracket:hover::after {
+  width: 28px;
+  height: 28px;
+}
+
+.hazard-stripe {
+  height: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ff6a00 0 14px,
+    #000000 14px 28px
+  );
 }
